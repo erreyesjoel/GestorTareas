@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 migrate = Migrate()
+login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
@@ -16,6 +18,16 @@ def create_app():
     # Inicializar SQLAlchemy y Flask-Migrate
     db.init_app(app)
     migrate.init_app(app, db)
+    
+    # Inicializar Flask-Login
+    login_manager.init_app(app)
+    login_manager.login_view = 'main.loginRegistro'
+    login_manager.login_message = 'Por favor inicia sesión para acceder a esta página'
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        from .models import Usuario
+        return Usuario.query.get(int(user_id))
 
     # Importar y registrar el Blueprint
     from .routes import main

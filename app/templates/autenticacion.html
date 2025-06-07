@@ -14,19 +14,18 @@
                 <p id="form-subtitle">Accede a tu cuenta para gestionar tus tareas</p>
             </div>
 
-            <form id="auth-form" class="auth-form">
-                <!-- Campo nombre (solo visible en registro) -->
-                <div class="input-group hidden" id="name-group">
-                    <label for="name">Nombre completo</label>
-                    <div class="input-wrapper">
-                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                            <circle cx="12" cy="7" r="4"/>
-                        </svg>
-                        <input type="text" id="name" name="name" placeholder="Ingresa tu nombre completo">
-                    </div>
-                </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
+            <!-- Formulario de Login -->
+            <form id="login-form" class="auth-form" method="POST" action="{{ url_for('main.loginRegistro') }}">
+                {{ login_form.csrf_token }}
+                
                 <!-- Campo email -->
                 <div class="input-group">
                     <label for="email">Correo electrónico</label>
@@ -35,7 +34,7 @@
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                             <polyline points="22,6 12,13 2,6"/>
                         </svg>
-                        <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>
+                        {{ login_form.email(class="form-control", placeholder="correo@ejemplo.com") }}
                     </div>
                 </div>
 
@@ -48,7 +47,7 @@
                             <circle cx="12" cy="16" r="1"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                         </svg>
-                        <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+                        {{ login_form.password(class="form-control", placeholder="Ingresa tu contraseña") }}
                         <button type="button" class="toggle-password" id="toggle-password">
                             <svg id="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -62,12 +61,64 @@
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn" id="submit-btn">
-                    <span>Iniciar Sesión</span>
-                    <div class="btn-loading hidden">
-                        <div class="spinner"></div>
+                {{ login_form.submit(class="submit-btn") }}
+            </form>
+
+            <!-- Formulario de Registro (inicialmente oculto) -->
+            <form id="registro-form" class="auth-form hidden" method="POST" action="{{ url_for('main.loginRegistro') }}">
+                {{ registro_form.csrf_token }}
+                
+                <!-- Campo nombre -->
+                <div class="input-group">
+                    <label for="nombre">Nombre completo</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        {{ registro_form.nombre(class="form-control", placeholder="Ingresa tu nombre completo") }}
                     </div>
-                </button>
+                </div>
+
+                <!-- Campo email -->
+                <div class="input-group">
+                    <label for="email">Correo electrónico</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        {{ registro_form.email(class="form-control", placeholder="correo@ejemplo.com") }}
+                    </div>
+                </div>
+
+                <!-- Campo password -->
+                <div class="input-group">
+                    <label for="password">Contraseña</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <circle cx="12" cy="16" r="1"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        {{ registro_form.password(class="form-control", placeholder="Ingresa tu contraseña") }}
+                    </div>
+                </div>
+
+                <!-- Campo confirmar password -->
+                <div class="input-group">
+                    <label for="confirm_password">Confirmar Contraseña</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <circle cx="12" cy="16" r="1"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        {{ registro_form.confirm_password(class="form-control", placeholder="Confirma tu contraseña") }}
+                    </div>
+                </div>
+
+                {{ registro_form.submit(class="submit-btn") }}
             </form>
 
             <div class="form-footer">
@@ -85,5 +136,5 @@
     </div>
 
     <script src="{{ url_for('static', filename='js/AuthForm.js') }}"></script>
-    </body>
+</body>
 </html>
