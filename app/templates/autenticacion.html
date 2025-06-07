@@ -25,7 +25,7 @@
             <!-- Formulario de Login -->
             <form id="login-form" class="auth-form" method="POST" action="{{ url_for('main.loginRegistro') }}">
                 {{ login_form.csrf_token }}
-                
+
                 <!-- Campo email -->
                 <div class="input-group">
                     <label for="email">Correo electrónico</label>
@@ -136,5 +136,5 @@
     </div>
 
     <script src="{{ url_for('static', filename='js/AuthForm.js') }}"></script>
-</body>
+    </body>
 </html>

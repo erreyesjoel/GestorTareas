@@ -1,0 +1,9 @@
+# Python
+__pycache__/
+*.pyc
+
+# Entorno virtual
+venv/
+
+# Alembic/Migrations cache
+migrations/__pycache__/

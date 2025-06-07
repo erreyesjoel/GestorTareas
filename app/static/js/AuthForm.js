@@ -85,7 +85,7 @@ class AuthForm {
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
     new AuthForm();
-});
+            });
 
 // Añadir animaciones CSS dinámicamente
 const style = document.createElement('style');
