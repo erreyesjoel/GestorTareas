@@ -5,4 +5,4 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def loginRegistro():
-    return render_template('loginRegistro.html')
+    return render_template('autenticacion.html')
