@@ -8,3 +8,13 @@ class Usuario(db.Model):
 
     def __repr__(self):
         return f'<Usuario {self.nombre}>'
+
+class Tarea(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(150), nullable=False)
+    descripcion = db.Column(db.Text, nullable=True)
+    estado = db.Column(db.Enum('pendiente', 'en progreso', 'completada', name='estado_tarea'), default='pendiente')
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+
+    def __repr__(self):
+        return f'<Tarea {self.titulo}>'    

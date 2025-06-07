@@ -9,7 +9,7 @@ def create_app():
     app = Flask(__name__)
 
     # Configuración de la base de datos MariaDB
-    app.config['SECRET_KEY'] = 'e9f4c0a77d4c0e4a1b3349b6342f77c3'
+    app.config['SECRET_KEY'] = '6140e43d57dd008288aa681cea195621cf4fa3efd8b0e97c891216867731c953'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://gestor:gestorUsuario@localhost/gestor_tareas'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
