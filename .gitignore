@@ -7,3 +7,5 @@ venv/
 
 # Alembic/Migrations cache
 migrations/__pycache__/
+
+.env
