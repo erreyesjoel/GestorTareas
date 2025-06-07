@@ -2,16 +2,21 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+import os
+from dotenv import load_dotenv
 
 db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
 
+# Cargar variables de entorno desde .env
+load_dotenv()
+
 def create_app():
     app = Flask(__name__)
 
     # Configuración de la base de datos MariaDB
-    app.config['SECRET_KEY'] = '6140e43d57dd008288aa681cea195621cf4fa3efd8b0e97c891216867731c953'
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://gestor:gestorUsuario@localhost/gestor_tareas'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
