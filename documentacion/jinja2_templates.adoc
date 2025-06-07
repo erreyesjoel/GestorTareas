@@ -1,0 +1,191 @@
+# Guía de Templates con Jinja2 en Flask
+
+## Bloques en Jinja2
+
+Los bloques en Jinja2 son áreas que puedes definir en una plantilla base y luego sobrescribir en las plantillas hijas. Se definen usando la sintaxis `{% block nombre_bloque %}` y se cierran con `{% endblock %}`.
+
+### Bloques Comunes
+
+1. `{% block title %}`
+```html
+{% block title %}Mi Título{% endblock %}
+```
+* Se usa para definir el título de la página que aparece en la pestaña del navegador
+* Cada página puede tener su propio título único
+
+2. `{% block styles %}`
+```html
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/miestilo.css') }}">
+{% endblock %}
+```
+* Se usa para incluir hojas de estilo CSS específicas de cada página
+* Va en la sección `<head>` del HTML
+
+3. `{% block content %}`
+```html
+{% block content %}
+    <!-- Aquí va el contenido principal de la página -->
+{% endblock %}
+```
+* Es donde va el contenido principal de cada página
+* Cada página tendrá su propio contenido único
+
+4. `{% block scripts %}`
+```html
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/miscript.js') }}"></script>
+{% endblock %}
+```
+* Se usa para incluir scripts JavaScript específicos de cada página
+* Generalmente va al final del `<body>`
+
+## Sintaxis Básica de Jinja2
+
+### 1. Delimitadores
+
+* `{{ }}` - Para mostrar variables o expresiones
+```html
+<h1>Hola, {{ usuario.nombre }}</h1>
+```
+
+* `{% %}` - Para lógica de control (if, for, block, etc.)
+```html
+{% if usuario.is_authenticated %}
+    <p>Bienvenido!</p>
+{% endif %}
+```
+
+* `{# #}` - Para comentarios (no se muestran en el HTML final)
+```html
+{# Esto es un comentario que no aparecerá en el HTML #}
+```
+
+### 2. Herencia de Plantillas
+
+La herencia permite tener una plantilla base y extenderla:
+
+```html
+<!-- base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    {% block content %}{% endblock %}
+    {% block scripts %}{% endblock %}
+</body>
+</html>
+
+<!-- pagina.html -->
+{% extends "base.html" %}
+
+{% block title %}Mi Página{% endblock %}
+
+{% block content %}
+    <h1>Contenido de mi página</h1>
+{% endblock %}
+```
+
+### 3. Includes
+
+Puedes incluir otros archivos de template:
+
+```html
+{% include 'header.html' %}
+```
+
+### 4. Bucles
+
+```html
+{% for tarea in tareas %}
+    <div class="tarea">
+        <h3>{{ tarea.titulo }}</h3>
+        <p>{{ tarea.descripcion }}</p>
+    </div>
+{% endfor %}
+```
+
+### 5. Condicionales
+
+```html
+{% if usuario.is_admin %}
+    <div class="admin-panel">
+        <!-- Panel de administración -->
+    </div>
+{% elif usuario.is_moderator %}
+    <div class="mod-panel">
+        <!-- Panel de moderador -->
+    </div>
+{% else %}
+    <div class="user-panel">
+        <!-- Panel de usuario normal -->
+    </div>
+{% endif %}
+```
+
+### 6. Filtros
+
+Los filtros modifican variables y se usan con el símbolo `|`:
+
+```html
+{{ nombre|upper }}  <!-- Convierte a mayúsculas -->
+{{ fecha|date }}    <!-- Formatea una fecha -->
+{{ texto|safe }}    <!-- Marca el texto como HTML seguro -->
+```
+
+## Ejemplo Práctico
+
+```html
+{% extends "base.html" %}
+
+{% block title %}
+    Dashboard - {{ usuario.nombre }}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>Bienvenido, {{ usuario.nombre }}</h1>
+    
+    {% if tareas %}
+        {% for tarea in tareas %}
+            <div class="tarea">
+                <h3>{{ tarea.titulo }}</h3>
+                <p>{{ tarea.descripcion|truncate(100) }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No tienes tareas pendientes</p>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
+```
+
+## Consejos y Buenas Prácticas
+
+1. **Organización**:
+   * Mantén una plantilla base con la estructura común
+   * Usa bloques para secciones que cambiarán entre páginas
+   * Crea componentes reutilizables en archivos separados
+
+2. **Seguridad**:
+   * Usa `{{ variable|escape }}` para escapar HTML por defecto
+   * Solo usa `|safe` cuando estés seguro de que el contenido es seguro
+
+3. **Rendimiento**:
+   * Minimiza la lógica en las plantillas
+   * Prepara los datos en las rutas de Flask
+   * Usa `{% include %}` para componentes que se repiten
+
+4. **Mantenibilidad**:
+   * Comenta secciones complejas
+   * Usa nombres descriptivos para los bloques
+   * Mantén una estructura consistente en todas las plantillas 
