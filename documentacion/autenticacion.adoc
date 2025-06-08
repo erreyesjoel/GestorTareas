@@ -177,3 +177,23 @@ else:
 - https://flask-wtf.readthedocs.io/
 - https://flask-login.readthedocs.io/
 - https://flask.palletsprojects.com/
+
+== 14. ¿Para qué sirve UserMixin?
+
+- `UserMixin` es una clase proporcionada por Flask-Login que puedes heredar en tu modelo de usuario.
+- Al heredar de `UserMixin`, tu modelo obtiene automáticamente los métodos y propiedades que Flask-Login necesita para gestionar la autenticación.
+- Entre estos métodos y propiedades están: `is_authenticated`, `is_active`, `is_anonymous` y `get_id()`.
+- Esto simplifica mucho la integración de tu modelo de usuario con Flask-Login, ya que no tienes que implementar estos métodos manualmente.
+- Ejemplo de uso:
++
+[source,python]
+----
+from flask_login import UserMixin
+
+class Usuario(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    contraseña = db.Column(db.String(200), nullable=False)
+----
+- Así, Flask-Login puede reconocer y gestionar correctamente las sesiones de tus usuarios sin necesidad de código adicional en tu modelo.
