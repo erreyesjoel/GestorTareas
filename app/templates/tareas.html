@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Mis Tareas{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+    <h2>Mis Tareas</h2>
+    <a href="{{ url_for('main.nueva_tarea') }}" class="btn btn-primary">Nueva tarea</a>
+    <ul>
+        {% for tarea in tareas %}
+        <li>
+            <strong>{{ tarea.titulo }}</strong> - {{ tarea.estado }}
+            <a href="{{ url_for('main.editar_tarea', id=tarea.id) }}">Editar</a>
+            <!-- Modal de confirmación -->
+            <button data-bs-toggle="modal" data-bs-target="#modalEliminar{{ tarea.id }}">Eliminar</button>
+            <div class="modal fade" id="modalEliminar{{ tarea.id }}" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header"><h5>Confirmar eliminación</h5></div>
+                  <div class="modal-body">¿Seguro que quieres eliminar esta tarea?</div>
+                  <div class="modal-footer">
+                    <form method="POST" action="{{ url_for('main.eliminar_tarea', id=tarea.id) }}">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

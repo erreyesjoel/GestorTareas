@@ -12,7 +12,7 @@
     <div class="content-wrapper">
         <!-- Panel de acciones rápidas -->
         <div class="quick-actions">
-            <button class="action-btn primary">
+                <button class="action-btn primary" onclick='window.location.href="{{ url_for("main.nueva_tarea") }}"'>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M12 2v20M2 12h20"/>
                 </svg>
@@ -105,7 +105,7 @@
                     </div>
                     <h3>No hay tareas aún</h3>
                     <p>Comienza creando tu primera tarea para organizarte mejor</p>
-                    <button class="create-task-btn">
+                    <button class="create-task-btn" onclick="window.location.href='{{ url_for('main.nueva_tarea') }}'">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path d="M12 2v20M2 12h20"/>
                         </svg>
@@ -120,4 +120,4 @@
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
-{% endblock %} 
+{% endblock %}

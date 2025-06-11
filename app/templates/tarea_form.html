@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ accion }} Tarea{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+    <h2>{{ accion }} Tarea</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.titulo.label }}<br>
+            {{ form.titulo(size=32) }}
+        </div>
+        <div>
+            {{ form.descripcion.label }}<br>
+            {{ form.descripcion(rows=4, cols=40) }}
+        </div>
+        <div>
+            {{ form.estado.label }}<br>
+            {{ form.estado() }}
+        </div>
+        <div>
+            {{ form.submit(class="btn btn-success") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
