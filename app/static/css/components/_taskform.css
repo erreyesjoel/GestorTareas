@@ -1,0 +1,62 @@
+.task-form-wrapper {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(60,60,60,0.06);
+    padding: 2rem 2.5rem;
+    max-width: 500px;
+    margin: 2rem auto;
+}
+
+.task-form-wrapper h2 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.task-form-wrapper form > div {
+    margin-bottom: 1.2rem;
+}
+
+.task-form-wrapper label {
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.task-form-wrapper input[type="text"],
+.task-form-wrapper textarea,
+.task-form-wrapper select {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: var(--gray-50);
+    color: var(--gray-900);
+    transition: border 0.2s;
+}
+
+.task-form-wrapper input:focus,
+.task-form-wrapper textarea:focus,
+.task-form-wrapper select:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.task-form-wrapper .btn-success {
+    background: var(--success);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.task-form-wrapper .btn-success:hover {
+    background: #059669;
+}

@@ -4,6 +4,7 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/_dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/_tasklist.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -94,25 +95,44 @@
                 </div>
             </div>
 
-            <!-- Estado vacío -->
-            <div class="empty-state">
-                <div class="empty-state-content">
-                    <div class="illustration">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
-                            <polyline points="13 2 13 9 20 9"/>
-                        </svg>
+            {% if tareas %}
+                <ul class="task-list">
+                    {% for tarea in tareas %}
+                    <li class="task-item">
+                        <div class="task-info">
+                            <span class="task-title">{{ tarea.titulo }}</span>
+                            <span class="task-status">{{ tarea.estado }}</span>
+                        </div>
+                        <div class="task-actions">
+                            <a href="{{ url_for('main.ver_tarea', id=tarea.id) }}" class="btn btn-info">Ver</a>
+                            <a href="{{ url_for('main.editar_tarea', id=tarea.id) }}" class="btn btn-primary">Editar</a>
+                            <form method="POST" action="{{ url_for('main.eliminar_tarea', id=tarea.id) }}" style="display:inline;">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que quieres eliminar esta tarea?');">Eliminar</button>
+                            </form>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-state-content">
+                        <div class="illustration">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+                                <polyline points="13 2 13 9 20 9"/>
+                            </svg>
+                        </div>
+                        <h3>No hay tareas aún</h3>
+                        <p>Comienza creando tu primera tarea para organizarte mejor</p>
+                        <button class="create-task-btn" onclick="window.location.href='{{ url_for('main.nueva_tarea') }}'">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 2v20M2 12h20"/>
+                            </svg>
+                            Crear Primera Tarea
+                        </button>
                     </div>
-                    <h3>No hay tareas aún</h3>
-                    <p>Comienza creando tu primera tarea para organizarte mejor</p>
-                    <button class="create-task-btn" onclick="window.location.href='{{ url_for('main.nueva_tarea') }}'">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M12 2v20M2 12h20"/>
-                        </svg>
-                        Crear Primera Tarea
-                    </button>
                 </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 </div>

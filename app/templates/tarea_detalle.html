@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Detalle de Tarea{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/_taskdetail.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="task-detail-wrapper">
+    <h2>{{ tarea.titulo }}</h2>
+    <p><strong>Descripción:</strong> {{ tarea.descripcion or "Sin descripción" }}</p>
+    <p><strong>Estado:</strong> <span class="task-status">{{ tarea.estado }}</span></p>
+    <div class="task-detail-actions">
+        <a href="{{ url_for('main.editar_tarea', id=tarea.id) }}" class="btn btn-primary">Editar</a>
+        <form method="POST" action="{{ url_for('main.eliminar_tarea', id=tarea.id) }}" style="display:inline;">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que quieres eliminar esta tarea?');">Eliminar</button>
+        </form>
+        <a href="{{ url_for('main.tareas') }}" class="btn btn-secondary">Volver a mis tareas</a>
+    </div>
+</div>
+{% endblock %}

@@ -58,7 +58,8 @@ def loginRegistro():
 @main.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    tareas = Tarea.query.filter_by(usuario_id=current_user.id).all()
+    return render_template('dashboard.html', tareas=tareas)
 
 @main.route('/logout')
 @login_required
@@ -117,3 +118,12 @@ def eliminar_tarea(id):
     db.session.commit()
     flash('Tarea eliminada', 'success')
     return redirect(url_for('main.tareas'))
+
+@main.route('/tareas/<int:id>', methods=['GET'])
+@login_required
+def ver_tarea(id):
+    tarea = Tarea.query.get_or_404(id)
+    if tarea.usuario_id != current_user.id:
+        flash('No autorizado', 'error')
+        return redirect(url_for('main.tareas'))
+    return render_template('tarea_detalle.html', tarea=tarea)

@@ -1,29 +1,28 @@
 {% extends "base.html" %}
 {% block title %}Mis Tareas{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/_tasklist.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="content-wrapper">
     <h2>Mis Tareas</h2>
     <a href="{{ url_for('main.nueva_tarea') }}" class="btn btn-primary">Nueva tarea</a>
-    <ul>
+    <ul class="task-list">
         {% for tarea in tareas %}
-        <li>
-            <strong>{{ tarea.titulo }}</strong> - {{ tarea.estado }}
-            <a href="{{ url_for('main.editar_tarea', id=tarea.id) }}">Editar</a>
-            <!-- Modal de confirmación -->
-            <button data-bs-toggle="modal" data-bs-target="#modalEliminar{{ tarea.id }}">Eliminar</button>
-            <div class="modal fade" id="modalEliminar{{ tarea.id }}" tabindex="-1">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header"><h5>Confirmar eliminación</h5></div>
-                  <div class="modal-body">¿Seguro que quieres eliminar esta tarea?</div>
-                  <div class="modal-footer">
-                    <form method="POST" action="{{ url_for('main.eliminar_tarea', id=tarea.id) }}">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                      <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
+        <li class="task-item">
+            <div class="task-info">
+                <span class="task-title">{{ tarea.titulo }}</span>
+                <span class="task-status">{{ tarea.estado }}</span>
+            </div>
+            <div class="task-actions">
+                <a href="{{ url_for('main.ver_tarea', id=tarea.id) }}" class="btn btn-info">Ver</a>
+                <a href="{{ url_for('main.editar_tarea', id=tarea.id) }}" class="btn btn-primary">Editar</a>
+                <!-- Modal de confirmación o formulario de eliminar -->
+                <form method="POST" action="{{ url_for('main.eliminar_tarea', id=tarea.id) }}" style="display:inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que quieres eliminar esta tarea?');">Eliminar</button>
+                </form>
             </div>
         </li>
         {% endfor %}
