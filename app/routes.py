@@ -10,7 +10,7 @@ main = Blueprint('main', __name__)
 
 @main.route('/', methods=['GET', 'POST'])
 def loginRegistro():
-    if current_user.is_authenticated:
+    if current_user.is_authenticated: # si esta autenticado, redirigir al dashboard
         return redirect(url_for('main.dashboard'))
 
     login_form = LoginForm()
