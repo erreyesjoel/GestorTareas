@@ -19,7 +19,6 @@
             <div class="task-actions">
                 <a href="{{ url_for('main.ver_tarea', id=tarea.id) }}" class="btn btn-info">Ver</a>
                 <a href="{{ url_for('main.editar_tarea', id=tarea.id) }}" class="btn btn-primary">Editar</a>
-                <!-- Modal de confirmación o formulario de eliminar -->
                 <form method="POST" action="{{ url_for('main.eliminar_tarea', id=tarea.id) }}" style="display:inline;">
                     <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que quieres eliminar esta tarea?');">Eliminar</button>
                 </form>

@@ -60,6 +60,7 @@
 .btn-info {
     background: var(--secondary);
     color: white;
+    text-decoration: none;
 }
 
 .btn-info:hover {
@@ -67,12 +68,14 @@
 }
 
 .btn-primary {
-    background: var(--primary);
-    color: white;
+    background: #2563eb !important;   /* azul */
+    color: #fff !important;
+    text-decoration: none;
 }
 
+
 .btn-primary:hover {
-    background: var(--primary-dark);
+    background: #1e40af !important;   /* azul más oscuro */
 }
 
 .btn-danger {
@@ -91,4 +94,20 @@
 
 .btn-secondary:hover {
     background: var(--gray-300);
+}
+
+.task-actions .btn,
+.task-actions button.btn {
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    text-decoration: none;
+    display: inline-block;
+    height: auto;
+    line-height: 1.5;
+    vertical-align: middle;
 }
