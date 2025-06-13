@@ -140,3 +140,45 @@ body {
     height: 20px;
     stroke-width: 2;
 }
+
+/* Ocultar por defecto */
+.filter-wrapper.hidden {
+    display: none;
+}
+
+/* Mostrar como popover */
+.filter-wrapper {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    padding: 1rem 1.5rem;
+    z-index: 100;
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+    transition: opacity 0.2s;
+}
+
+/* Estilo bonito para los checkboxes */
+.filter-wrapper label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: var(--gray-700);
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.filter-wrapper input[type="checkbox"] {
+    accent-color: var(--primary);
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid var(--gray-300);
+    margin-right: 0.5rem;
+    cursor: pointer;
+}

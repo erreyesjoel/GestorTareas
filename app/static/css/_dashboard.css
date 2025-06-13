@@ -48,6 +48,7 @@ body {
 
 /* Quick Actions */
 .quick-actions {
+    position: relative;
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
