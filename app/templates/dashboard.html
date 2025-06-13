@@ -54,32 +54,27 @@
         <div class="summary-card highlight">
             <div class="card-content">
                 <h3>Tareas Totales</h3>
-                <div class="number">0</div>
+                <div class="number">{{ total }}</div>
                 <div class="trend positive">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M7 17l5-5 5 5"/>
-                        <path d="M7 7l5 5 5-5"/>
-                    </svg>
-                    <span>Esta semana</span>
                 </div>
             </div>
         </div>
         <div class="summary-card">
             <div class="card-content">
                 <h3>Pendientes</h3>
-                <div class="number warning">0</div>
+                <div class="number warning">{{ pendientes }}</div>
             </div>
         </div>
         <div class="summary-card">
             <div class="card-content">
                 <h3>En Progreso</h3>
-                <div class="number info">0</div>
+                <div class="number info">{{ en_progreso }}</div>
             </div>
         </div>
         <div class="summary-card">
             <div class="card-content">
                 <h3>Completadas</h3>
-                <div class="number success">0</div>
+                <div class="number success">{{ completadas }}</div>
             </div>
         </div>
     </div>
