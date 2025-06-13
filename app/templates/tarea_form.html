@@ -24,6 +24,9 @@
         </div>
         <div>
             {{ form.submit(class="btn btn-success") }}
+            {% if accion == 'Editar' %}
+                <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary" style="margin-left:10px;">Cancelar</a>
+            {% endif %}
         </div>
     </form>
 </div>

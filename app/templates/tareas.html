@@ -19,12 +19,25 @@
             <div class="task-actions">
                 <a href="{{ url_for('main.ver_tarea', id=tarea.id) }}" class="btn btn-info">Ver</a>
                 <a href="{{ url_for('main.editar_tarea', id=tarea.id) }}" class="btn btn-primary">Editar</a>
-                <form method="POST" action="{{ url_for('main.eliminar_tarea', id=tarea.id) }}" style="display:inline;">
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que quieres eliminar esta tarea?');">Eliminar</button>
+                <form method="POST" action="{{ url_for('main.eliminar_tarea', id=tarea.id) }}" class="delete-task-form" style="display:inline;">
+                    <button type="button" class="btn btn-danger delete-task-btn" data-task-id="{{ tarea.id }}">Eliminar</button>
                 </form>
             </div>
         </li>
         {% endfor %}
     </ul>
+    <div id="delete-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>¿Seguro que quieres eliminar esta tarea?</h3>
+            <div style="margin-top:1rem;">
+                <button id="confirm-delete" class="btn btn-danger">Eliminar</button>
+                <button id="cancel-delete" class="btn btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 {% endblock %}
