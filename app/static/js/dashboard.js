@@ -94,13 +94,29 @@ document.addEventListener('DOMContentLoaded', () => {
         // Texto de búsqueda
         const filter = (document.getElementById('task-search')?.value || '').toLowerCase();
 
+        let total = 0, pendientes = 0, enprogreso = 0, completadas = 0;
+
         document.querySelectorAll('.task-item').forEach(item => {
             const title = item.querySelector('.task-title').textContent.toLowerCase();
             const state = item.querySelector('.task-status').textContent.toLowerCase();
             const matchesState = selectedStates.includes(state);
             const matchesText = title.includes(filter);
-            item.style.display = (matchesState && matchesText) ? '' : 'none';
+            const visible = matchesState && matchesText;
+            item.style.display = visible ? '' : 'none';
+
+            if (visible) {
+                total++;
+                if (state === 'pendiente') pendientes++;
+                if (state === 'en progreso') enprogreso++;
+                if (state === 'completada') completadas++;
+            }
         });
+
+        // Actualiza los contadores
+        document.getElementById('count-total').textContent = total;
+        document.getElementById('count-pendientes').textContent = pendientes;
+        document.getElementById('count-enprogreso').textContent = enprogreso;
+        document.getElementById('count-completadas').textContent = completadas;
     }
 
     // Si tienes filtro de texto, llama a filterTasks también en su evento:
