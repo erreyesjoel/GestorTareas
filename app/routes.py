@@ -59,7 +59,18 @@ def loginRegistro():
 @login_required
 def dashboard():
     tareas = Tarea.query.filter_by(usuario_id=current_user.id).all()
-    return render_template('dashboard.html', tareas=tareas)
+    total = len(tareas)
+    pendientes = sum(1 for t in tareas if t.estado == 'pendiente')
+    en_progreso = sum(1 for t in tareas if t.estado == 'en progreso')
+    completadas = sum(1 for t in tareas if t.estado == 'completada')
+    return render_template(
+        'dashboard.html',
+        tareas=tareas,
+        total=total,
+        pendientes=pendientes,
+        en_progreso=en_progreso,
+        completadas=completadas
+    )
 
 @main.route('/logout')
 @login_required
