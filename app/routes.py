@@ -87,7 +87,7 @@ def nueva_tarea():
         db.session.add(tarea)
         db.session.commit()
         flash('Tarea creada correctamente', 'success')
-        return redirect(url_for('main.tareas'))
+        return redirect(url_for('main.dashboard'))
     return render_template('tarea_form.html', form=form, accion='Nueva')
 
 @main.route('/tareas/editar/<int:id>', methods=['GET', 'POST'])
@@ -96,7 +96,7 @@ def editar_tarea(id):
     tarea = Tarea.query.get_or_404(id)
     if tarea.usuario_id != current_user.id:
         flash('No autorizado', 'error')
-        return redirect(url_for('main.tareas'))
+        return redirect(url_for('main.dashboard'))
     form = TareaForm(obj=tarea)
     if form.validate_on_submit():
         tarea.titulo = form.titulo.data
@@ -104,7 +104,7 @@ def editar_tarea(id):
         tarea.estado = form.estado.data
         db.session.commit()
         flash('Tarea actualizada', 'success')
-        return redirect(url_for('main.tareas'))
+        return redirect(url_for('main.dashboard'))
     return render_template('tarea_form.html', form=form, accion='Editar')
 
 @main.route('/tareas/eliminar/<int:id>', methods=['POST'])

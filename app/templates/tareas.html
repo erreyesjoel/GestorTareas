@@ -8,7 +8,6 @@
 {% block content %}
 <div class="content-wrapper">
     <h2>Mis Tareas</h2>
-    <a href="{{ url_for('main.nueva_tarea') }}" class="btn btn-primary">Nueva tarea</a>
     <ul class="task-list">
         {% for tarea in tareas %}
         <li class="task-item">
