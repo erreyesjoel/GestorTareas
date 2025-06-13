@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, EmailField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
+from wtforms import TextAreaField, SelectField
 
 class LoginForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired(), Email()])
@@ -19,3 +20,13 @@ class RegistroForm(FlaskForm):
         EqualTo('password', message='Las contraseñas deben coincidir')
     ])
     submit = SubmitField('Registrarse')
+
+class TareaForm(FlaskForm):
+    titulo = StringField('Titulo', validators=[DataRequired()])
+    descripcion = TextAreaField('Descripcion')
+    estado = SelectField('Estado', choices=[
+        ('pendiente', 'Pendiente'),
+        ('en progreso', 'En progreso'),
+        ('completada', 'Completada')
+    ])
+    submit = SubmitField('Guardar')

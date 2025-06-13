@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ accion }} Tarea{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/_taskform.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="task-form-wrapper">
+    <h2>{{ accion }} Tarea</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.titulo.label }}<br>
+            {{ form.titulo(size=32) }}
+        </div>
+        <div>
+            {{ form.descripcion.label }}<br>
+            {{ form.descripcion(rows=4, cols=40) }}
+        </div>
+        <div>
+            {{ form.estado.label }}<br>
+            {{ form.estado() }}
+        </div>
+        <div>
+            {{ form.submit(class="btn btn-success") }}
+            {% if accion == 'Editar' %}
+                <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary" style="margin-left:10px;">Cancelar</a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+{% endblock %}
