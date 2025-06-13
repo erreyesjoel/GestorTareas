@@ -45,6 +45,8 @@
     outline: none;
 }
 
+/* Elimina o comenta este bloque para unificar el estilo de los botones */
+/*
 .task-form-wrapper .btn-success {
     background: var(--success);
     color: white;
@@ -60,3 +62,4 @@
 .task-form-wrapper .btn-success:hover {
     background: #059669;
 }
+*/
