@@ -63,4 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
             formToDelete = null;
         }
     });
+
+     // FILTRO DE BÚSQUEDA DE TAREAS POR NOMBRE
+    const searchInput = document.getElementById('task-search');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            document.querySelectorAll('.task-item').forEach(item => {
+                const title = item.querySelector('.task-title').textContent.toLowerCase();
+                if (title.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    }
 });

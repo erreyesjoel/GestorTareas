@@ -103,3 +103,40 @@ body {
 .btn-success:hover {
     background: #059669;
 }
+
+/* Buscador con icono */
+.search-wrapper {
+    position: relative;
+    display: inline-block;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(60,60,60,0.03);
+}
+
+.search-wrapper input[type="text"] {
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 180px;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: var(--gray-900);
+}
+
+.search-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
